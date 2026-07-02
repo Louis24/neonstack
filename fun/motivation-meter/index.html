@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动力指数检测 - Motivation Level Meter</title>
+    <meta name="description" content="Motivation Meter on NeonStack.">
+    <link rel="stylesheet" href="../../assets/site.css">
+    <style>
+        .meter-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .meter-gauge {
+            width: 200px;
+            height: 200px;
+            border: 10px solid #e0e0e0;
+            border-radius: 50%;
+            margin: 30px auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .meter-value {
+            font-size: 60px;
+            font-weight: bold;
+        }
+        .meter-label {
+            font-size: 24px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="canonical" href="https://neonstack.net/fun/motivation-meter/">
+    <script type="application/ld+json" data-generated-seo>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://neonstack.net/fun/motivation-meter/#webpage",
+          "url": "https://neonstack.net/fun/motivation-meter/",
+          "name": "Motivation Meter",
+          "description": "Motivation Meter on NeonStack.",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://neonstack.net/#website",
+            "name": "NeonStack",
+            "url": "https://neonstack.net/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://neonstack.net/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fun",
+              "item": "https://neonstack.net/fun/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Motivation Meter",
+              "item": "https://neonstack.net/fun/motivation-meter/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>📊 动力指数检测</h1>
+        <p>诚实地面对自己的摸鱼欲望</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <div class="meter-container">
+                <div class="meter-gauge">
+                    <div class="meter-value" id="meterValue">--</div>
+                </div>
+                <div class="meter-label" id="meterLabel">点击检测</div>
+                <button id="testBtn" class="primary-btn">检测动力值</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>💡 动力等级说明</h2>
+            <ul class="tips-list">
+                <li>0-20%：完全不想动，建议请假</li>
+                <li>21-40%：勉强能摸鱼，偶尔回个消息</li>
+                <li>41-60%：正常划水状态</li>
+                <li>61-80%：还有点干劲，能写几行代码</li>
+                <li>81-100%：满血状态（不太可能）</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Pure Frontend Tool - No Backend Required</p>
+    </footer>
+
+    <script>
+        const levels = [
+            { max: 20, label: "💀 完全躺平", color: "#f44336" },
+            { max: 40, label: "😴 极度困倦", color: "#FF9800" },
+            { max: 60, label: "😐 勉强撑着", color: "#FFC107" },
+            { max: 80, label: "😊 还算积极", color: "#8BC34A" },
+            { max: 100, label: "🔥 战斗力爆表", color: "#4CAF50" }
+        ];
+
+        document.getElementById('testBtn').addEventListener('click', () => {
+            const hour = new Date().getHours();
+            let base;
+            
+            // 根据时间调整基础值
+            if (hour < 10) base = 60; // 早上还有点精神
+            else if (hour < 14) base = 40; // 午前疲惫
+            else if (hour < 16) base = 20; // 午后昏睡
+            else if (hour < 18) base = 50; // 快下班了振作
+            else base = 10; // 加班时刻
+
+            // 加随机波动
+            const value = Math.min(100, Math.max(0, base + (Math.random() * 40 - 20)));
+            const rounded = Math.round(value);
+
+            const level = levels.find(l => rounded <= l.max);
+
+            document.getElementById('meterValue').textContent = rounded + '%';
+            document.getElementById('meterValue').style.color = level.color;
+            document.getElementById('meterLabel').textContent = level.label;
+        });
+    </script>
+</body>
+</html>

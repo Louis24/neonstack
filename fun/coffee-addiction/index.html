@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咖啡因成瘾计算器 - Coffee Addiction Calculator</title>
+    <meta name="description" content="Coffee Addiction on NeonStack.">
+    <link rel="stylesheet" href="../../assets/site.css">
+    <link rel="canonical" href="https://neonstack.net/fun/coffee-addiction/">
+    <script type="application/ld+json" data-generated-seo>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://neonstack.net/fun/coffee-addiction/#webpage",
+          "url": "https://neonstack.net/fun/coffee-addiction/",
+          "name": "Coffee Addiction",
+          "description": "Coffee Addiction on NeonStack.",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://neonstack.net/#website",
+            "name": "NeonStack",
+            "url": "https://neonstack.net/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://neonstack.net/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fun",
+              "item": "https://neonstack.net/fun/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Coffee Addiction",
+              "item": "https://neonstack.net/fun/coffee-addiction/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>☕ 咖啡因成瘾计算器</h1>
+        <p>看看你的咖啡依赖有多严重</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <div class="tool-area">
+                <label>每天喝几杯？</label>
+                <input type="number" id="cupsPerDay" min="0" max="20" value="2">
+                
+                <label>一杯多少钱？</label>
+                <input type="number" id="pricePerCup" min="0" value="25">
+
+                <button id="calculateBtn" class="primary-btn">计算成瘾度</button>
+
+                <div id="result" class="result-box" style="display:none;"></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📊 成瘾等级</h2>
+            <ul class="tips-list">
+                <li>0-1杯/天：正常人类</li>
+                <li>2-3杯/天：轻度依赖</li>
+                <li>4-5杯/天：重度依赖</li>
+                <li>6+杯/天：咖啡战士🫡</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Pure Frontend Tool - No Backend Required</p>
+    </footer>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', () => {
+            const cupsPerDay = parseInt(document.getElementById('cupsPerDay').value) || 0;
+            const price = parseInt(document.getElementById('pricePerCup').value) || 0;
+
+            const cupsPerYear = cupsPerDay * 365;
+            const costPerYear = cupsPerYear * price;
+            const caffeine = cupsPerDay * 95; // mg
+
+            let level = '';
+            if (cupsPerDay <= 1) level = '😌 正常饮用';
+            else if (cupsPerDay <= 3) level = '😅 轻度依赖';
+            else if (cupsPerDay <= 5) level = '😰 重度依赖';
+            else level = '☠️ 咖啡战士';
+
+            const result = `
+                <h3>${level}</h3>
+                <p>📅 每年喝掉：<strong>${cupsPerYear}</strong> 杯</p>
+                <p>💰 每年花费：<strong>¥${costPerYear}</strong></p>
+                <p>⚡ 每日摄入：<strong>${caffeine}mg</strong> 咖啡因</p>
+                <p class="note">建议每日咖啡因摄入不超过400mg</p>
+            `;
+
+            document.getElementById('result').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

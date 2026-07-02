@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职场黑话生成器 - Corporate Buzzword Generator</title>
+    <meta name="description" content="一键生成高大上的职场黑话，让你听起来很专业">
+    <link rel="stylesheet" href="../../assets/site.css">
+    <link rel="canonical" href="https://neonstack.net/fun/buzzword-generator/">
+    <script type="application/ld+json" data-generated-seo>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://neonstack.net/fun/buzzword-generator/#webpage",
+          "url": "https://neonstack.net/fun/buzzword-generator/",
+          "name": "Buzzword Generator",
+          "description": "一键生成高大上的职场黑话，让你听起来很专业",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://neonstack.net/#website",
+            "name": "NeonStack",
+            "url": "https://neonstack.net/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://neonstack.net/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fun",
+              "item": "https://neonstack.net/fun/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Buzzword Generator",
+              "item": "https://neonstack.net/fun/buzzword-generator/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>💼 职场黑话生成器</h1>
+        <p>让普通的话听起来很厉害</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <div class="tool-area">
+                <button id="generateBtn" class="primary-btn">生成职场黑话</button>
+                <div id="buzzwordDisplay" class="result-box"></div>
+                <button id="copyBtn" class="secondary-btn" style="display:none;">复制黑话</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📚 黑话词典</h2>
+            <ul class="tips-list">
+                <li>赋能 = 帮助</li>
+                <li>抓手 = 方法</li>
+                <li>闭环 = 完整流程</li>
+                <li>对齐 = 沟通</li>
+                <li>颗粒度 = 细节程度</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Pure Frontend Tool - No Backend Required</p>
+    </footer>
+
+    <script>
+        const subjects = ["我们", "团队", "项目", "产品", "业务"];
+        const verbs = ["赋能", "打通", "沉淀", "抽象", "对齐"];
+        const objects = ["链路", "生态", "闭环", "抓手", "心智"];
+        const goals = ["增长", "破圈", "提效", "增量", "突破"];
+
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const buzzwordDisplay = document.getElementById('buzzwordDisplay');
+
+        function random(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        generateBtn.addEventListener('click', () => {
+            const sentence = `${random(subjects)}需要通过${random(verbs)}${random(objects)}，实现${random(goals)}的目标`;
+            buzzwordDisplay.textContent = sentence;
+            buzzwordDisplay.style.display = 'block';
+            copyBtn.style.display = 'inline-block';
+        });
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(buzzwordDisplay.textContent);
+            copyBtn.textContent = '✅ 已复制';
+            setTimeout(() => copyBtn.textContent = '复制黑话', 2000);
+        });
+    </script>
+</body>
+</html>

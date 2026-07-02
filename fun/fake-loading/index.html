@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>假装加载中 - Fake Loading Screen</title>
+    <meta name="description" content="永远卡在99%的假加载界面，完美摸鱼借口">
+    <link rel="stylesheet" href="../../assets/site.css">
+    <style>
+        .loading-container {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 30px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            transition: width 2s ease;
+        }
+        .percentage {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+        .loading-text {
+            font-size: 18px;
+            color: #666;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <link rel="canonical" href="https://neonstack.net/fun/fake-loading/">
+    <script type="application/ld+json" data-generated-seo>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://neonstack.net/fun/fake-loading/#webpage",
+          "url": "https://neonstack.net/fun/fake-loading/",
+          "name": "Fake Loading",
+          "description": "永远卡在99%的假加载界面，完美摸鱼借口",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://neonstack.net/#website",
+            "name": "NeonStack",
+            "url": "https://neonstack.net/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://neonstack.net/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fun",
+              "item": "https://neonstack.net/fun/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Fake Loading",
+              "item": "https://neonstack.net/fun/fake-loading/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>⏳ 假装加载中</h1>
+        <p>永远在99%徘徊的加载界面</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <div class="loading-container">
+                <div class="spinner"></div>
+                <div class="percentage" id="percentage">0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="loading-text" id="loadingText">正在初始化...</div>
+            </div>
+            <button id="startBtn" class="primary-btn">开始"工作"</button>
+            <button id="resetBtn" class="secondary-btn">重置</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>Pure Frontend Tool - No Backend Required</p>
+    </footer>
+
+    <script>
+        const messages = [
+            "正在加载核心模块...",
+            "初始化数据库连接...",
+            "正在同步配置文件...",
+            "编译项目依赖...",
+            "优化性能参数...",
+            "检查系统兼容性...",
+            "正在部署更新...",
+            "几乎完成了..."
+        ];
+
+        let progress = 0;
+        let interval;
+        let messageIndex = 0;
+
+        document.getElementById('startBtn').addEventListener('click', startLoading);
+        document.getElementById('resetBtn').addEventListener('click', reset);
+
+        function startLoading() {
+            if (interval) return;
+            
+            interval = setInterval(() => {
+                if (progress < 99) {
+                    // 前95%正常速度
+                    if (progress < 95) {
+                        progress += Math.random() * 5;
+                    } else {
+                        // 95-99%极慢
+                        progress += Math.random() * 0.1;
+                    }
+                    progress = Math.min(progress, 99);
+                } else {
+                    // 在99%徘徊
+                    progress = 98.9 + Math.random() * 0.2;
+                }
+
+                updateDisplay();
+
+                // 每5秒换一条消息
+                if (Math.random() < 0.1) {
+                    messageIndex = (messageIndex + 1) % messages.length;
+                    document.getElementById('loadingText').textContent = messages[messageIndex];
+                }
+            }, 500);
+        }
+
+        function updateDisplay() {
+            const percent = Math.floor(progress);
+            document.getElementById('percentage').textContent = percent + '%';
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function reset() {
+            clearInterval(interval);
+            interval = null;
+            progress = 0;
+            messageIndex = 0;
+            updateDisplay();
+            document.getElementById('loadingText').textContent = '正在初始化...';
+        }
+    </script>
+</body>
+</html>

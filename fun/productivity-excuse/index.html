@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摸鱼理由生成器 - Productivity Excuse Generator</title>
+    <meta name="description" content="Productivity Excuse on NeonStack.">
+    <link rel="stylesheet" href="../../assets/site.css">
+    <link rel="canonical" href="https://neonstack.net/fun/productivity-excuse/">
+    <script type="application/ld+json" data-generated-seo>
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://neonstack.net/fun/productivity-excuse/#webpage",
+          "url": "https://neonstack.net/fun/productivity-excuse/",
+          "name": "Productivity Excuse",
+          "description": "Productivity Excuse on NeonStack.",
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://neonstack.net/#website",
+            "name": "NeonStack",
+            "url": "https://neonstack.net/"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://neonstack.net/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Fun",
+              "item": "https://neonstack.net/fun/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Productivity Excuse",
+              "item": "https://neonstack.net/fun/productivity-excuse/"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>💼 摸鱼理由生成器</h1>
+        <p>优雅划水，从一个好理由开始</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <div class="tool-area">
+                <button id="generateBtn" class="primary-btn">生成摸鱼理由</button>
+                <div id="excuseDisplay" class="result-box"></div>
+                <button id="copyBtn" class="secondary-btn" style="display:none;">复制理由</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>📋 理由分类</h2>
+            <div class="category-tags">
+                <span class="tag">技术调研</span>
+                <span class="tag">架构优化</span>
+                <span class="tag">代码重构</span>
+                <span class="tag">安全审计</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Pure Frontend Tool - No Backend Required</p>
+    </footer>
+
+    <script>
+        const excuses = [
+            "正在深入研究新的架构设计模式，为项目长期可维护性做准备",
+            "在进行代码质量审计，预防潜在的技术债务累积",
+            "正在评估新技术栈的可行性，确保我们不会落后于行业趋势",
+            "深度分析竞品方案，寻找差异化突破点",
+            "在做性能瓶颈调研，为未来扩展做技术储备",
+            "研究最新的安全漏洞防护方案，保障系统安全",
+            "正在优化开发流程，提升团队整体效率",
+            "分析用户行为数据，寻找产品优化方向",
+            "在做技术选型调研，避免踩已知的坑",
+            "研究行业最佳实践，确保我们的方案具有竞争力",
+            "深入学习新框架文档，为技术升级做准备",
+            "在进行代码重构规划，减少未来维护成本",
+            "研究微服务拆分方案，提升系统可扩展性",
+            "分析CI/CD流程优化空间，加快迭代速度",
+            "在做单元测试覆盖率提升规划",
+            "研究前沿技术趋势，保持团队技术敏锐度"
+        ];
+
+        const generateBtn = document.getElementById('generateBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const excuseDisplay = document.getElementById('excuseDisplay');
+
+        generateBtn.addEventListener('click', () => {
+            const randomExcuse = excuses[Math.floor(Math.random() * excuses.length)];
+            excuseDisplay.textContent = `"${randomExcuse}"`;
+            excuseDisplay.style.display = 'block';
+            copyBtn.style.display = 'inline-block';
+        });
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(excuseDisplay.textContent.replace(/"/g, ''));
+            copyBtn.textContent = '✅ 已复制';
+            setTimeout(() => {
+                copyBtn.textContent = '复制理由';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

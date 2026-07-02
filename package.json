@@ -1,0 +1,12 @@
+{
+  "name": "neonstack",
+  "version": "1.0.0",
+  "description": "Fast browser tools, practical buying guides, and lightweight game helpers",
+  "scripts": {
+    "build": "node generate-index.js",
+    "watch": "node generate-index.js --watch"
+  },
+  "keywords": ["tools", "utilities", "reviews", "games"],
+  "author": "",
+  "license": "MIT"
+}
