@@ -29,5 +29,6 @@
       "destination": "/privacy-policy/:path*",
       "permanent": true
     }
-  ]
+  ],
+  "outputDirectory": "."
 }
