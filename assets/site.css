@@ -1,20 +1,26 @@
 /* Shared Niche site theme, based on the freelance rate calculator palette. */
 :root {
-    --bg-gradient: linear-gradient(135deg, #090d16 0%, #111a2e 100%);
+    --bg-gradient: linear-gradient(135deg, #090d16 0%, #111a2e 50%, #0f1729 100%);
     --panel-bg: rgba(22, 28, 45, 0.66);
     --panel-strong: rgba(12, 18, 31, 0.86);
     --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(16, 185, 129, 0.3);
     --text-primary: #f1f5f9;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
     --accent-color: #10b981;
     --accent-hover: #34d399;
     --accent-soft: rgba(16, 185, 129, 0.1);
+    --accent-glow: rgba(16, 185, 129, 0.15);
     --warning: #f59e0b;
     --danger: #fb7185;
     --info: #38bdf8;
     --radius: 16px;
+    --radius-sm: 12px;
+    --radius-lg: 20px;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(16, 185, 129, 0.1);
 }
 
 * {
@@ -41,9 +47,10 @@ body::before {
     inset: 0;
     pointer-events: none;
     background:
-        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.12), transparent 26rem),
-        radial-gradient(circle at 90% 5%, rgba(56, 189, 248, 0.08), transparent 24rem);
-    opacity: 0.9;
+        radial-gradient(circle at 15% 10%, rgba(16, 185, 129, 0.15), transparent 30rem),
+        radial-gradient(circle at 90% 5%, rgba(56, 189, 248, 0.1), transparent 28rem),
+        radial-gradient(circle at 50% 80%, rgba(16, 185, 129, 0.08), transparent 32rem);
+    opacity: 1;
 }
 
 body > * {
@@ -126,7 +133,20 @@ a {
 
 .hero,
 .site-hero {
-    padding: 58px 0 24px;
+    padding: 72px 0 40px;
+    position: relative;
+}
+
+.hero::after,
+.site-hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 }
 
 .badge,
@@ -156,6 +176,7 @@ h2,
     font-size: clamp(26px, 4vw, 36px);
     line-height: 1.15;
     letter-spacing: 0;
+    margin-bottom: 20px;
 }
 
 .calculator-card h1,
@@ -195,12 +216,47 @@ h3 {
 .content-panel,
 .site-card,
 .faq-item,
-.ad-placeholder {
+.ad-placeholder,
+.card {
     background: var(--panel-bg);
     backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    padding: 32px;
+}
+
+.calculator-card:hover,
+.counter-card:hover,
+.planner-card:hover,
+.wiki-card:hover,
+.tool-card:hover,
+.review-card:hover,
+.content-panel:hover,
+.site-card:hover,
+.faq-item:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow), var(--shadow-glow);
+    transform: translateY(-2px);
+}
+
+.faq-item {
+    padding: 20px;
+}
+
+.faq-item h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 10px 0;
+}
+
+.faq-item p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .calculator-card,
@@ -240,7 +296,7 @@ h3 {
 .faq-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
 }
 
 .input-group,
@@ -301,14 +357,16 @@ button,
     justify-content: center;
     min-height: 42px;
     border: 1px solid rgba(16, 185, 129, 0.32);
-    border-radius: 8px;
+    border-radius: 10px;
     background: var(--accent-color);
     color: #04130e;
-    padding: 10px 14px;
+    padding: 12px 20px;
     font-size: 14px;
     font-weight: 800;
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
 }
 
 .btn:hover,
@@ -316,6 +374,8 @@ button:hover,
 .btn-table:hover,
 .btn-full:hover {
     background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
 }
 
 .btn-secondary {
@@ -553,13 +613,28 @@ button:hover,
 .comparison-section,
 .reviews-section,
 .faq-section {
-    padding: 34px 0;
+    padding: 48px 0;
+    position: relative;
+}
+
+.comparison-section::before,
+.reviews-section::before,
+.faq-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-color), transparent);
 }
 
 .table-responsive {
     overflow-x: auto;
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 .comparison-table {
@@ -571,7 +646,7 @@ button:hover,
 
 .comparison-table th,
 .comparison-table td {
-    padding: 14px;
+    padding: 18px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
@@ -579,7 +654,18 @@ button:hover,
 .comparison-table th {
     color: var(--text-secondary);
     font-size: 12px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.comparison-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.comparison-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .highlighted-row {

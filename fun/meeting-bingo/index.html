@@ -1,41 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会议Bingo - Meeting Bingo Game</title>
-    <meta name="description" content="Meeting Bingo on NeonStack.">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>Meeting Bingo | Fun 趣味</title>
+    <meta name="description" content="Play bingo during boring meetings. Mark off buzzwords and corporate jargon as you hear them.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/site.css">
-    <style>
-        .bingo-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        .bingo-cell {
-            aspect-ratio: 1;
-            border: 2px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            cursor: pointer;
-            background: white;
-            transition: all 0.3s;
-            font-size: 14px;
-            text-align: center;
-        }
-        .bingo-cell.clicked {
-            background: #4CAF50;
-            color: white;
-        }
-        .bingo-cell:hover {
-            transform: scale(1.05);
-        }
-    </style>
     <link rel="canonical" href="https://neonstack.net/fun/meeting-bingo/">
+    <style>
+        .bingo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .bingo-cell { background: var(--panel-strong); color: var(--text-primary); border: 1px solid var(--border-color); padding: 20px; border-radius: 8px; text-align: center; cursor: pointer; transition: all 0.3s; font-weight: 700; }
+        .bingo-cell:hover { border-color: var(--border-hover); background: rgba(255, 255, 255, 0.06); }
+        .bingo-cell.marked { background: rgba(16, 185, 129, 0.18); border-color: var(--accent-color); transform: scale(0.95); }
+        .reset-btn { background: var(--accent-color); color: #04130e; border: 1px solid rgba(16, 185, 129, 0.32); padding: 12px 30px; border-radius: 8px; font-size: 1rem; font-weight: 800; cursor: pointer; margin: 20px; font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
     <script type="application/ld+json" data-generated-seo>
     {
       "@context": "https://schema.org",
@@ -45,7 +28,7 @@
           "@id": "https://neonstack.net/fun/meeting-bingo/#webpage",
           "url": "https://neonstack.net/fun/meeting-bingo/",
           "name": "Meeting Bingo",
-          "description": "Meeting Bingo on NeonStack.",
+          "description": "Play bingo during boring meetings. Mark off buzzwords and corporate jargon as you hear them.",
           "isPartOf": {
             "@type": "WebSite",
             "@id": "https://neonstack.net/#website",
@@ -81,81 +64,52 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1>🎯 会议Bingo</h1>
-        <p>听到关键词就点一下，连成一线就赢了！</p>
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../" class="logo">Meeting<span>Bingo</span></a>
+            <nav class="nav-links"><a href="../../">Home</a></nav>
+        </div>
     </header>
-
-    <main class="container">
-        <section class="card">
-            <div id="bingoGrid" class="bingo-grid"></div>
-            <button id="resetBtn" class="secondary-btn">重新开始</button>
-            <div id="result" style="margin-top:20px; font-size:20px; text-align:center;"></div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Pure Frontend Tool - No Backend Required</p>
+    <section class="hero">
+        <div class="container text-center">
+            <span class="badge">Survival Tool</span>
+            <h1>Meeting Bingo</h1>
+            <p class="subtitle">Mark off corporate buzzwords as you hear them. First to get 5 in a row wins!</p>
+        </div>
+    </section>
+    <section class="comparison-section">
+        <div class="container">
+            <div class="card">
+                <div class="text-center">
+                    <button class="reset-btn" onclick="resetBoard()">🎲 New Game</button>
+                </div>
+                <div class="bingo-grid" id="bingoBoard"></div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container text-center">
+            <nav class="footer-links" aria-label="Footer navigation"><a href="../../about/">About</a><a href="../../contact/">Contact</a><a href="../../privacy-policy/">Privacy Policy</a><a href="../../disclaimer/">Disclaimer</a></nav>
+            <p>&copy; 2026 NeonStack. Browser-first tools and focused guides.</p>
+        </div>
     </footer>
-
     <script>
-        const phrases = [
-            "赋能", "抓手", "闭环", "生态",
-            "打通", "落地", "对齐", "沉淀",
-            "链路", "颗粒度", "抽象", "痛点",
-            "打法", "心智", "杠杆", "矩阵",
-            "破圈", "触达", "增量", "漏斗"
-        ];
-
-        function shuffle(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
-
-        function createBingoGrid() {
-            const grid = document.getElementById('bingoGrid');
-            grid.innerHTML = '';
-            const shuffled = shuffle([...phrases]).slice(0, 9);
-            
-            shuffled.forEach((phrase, index) => {
+        const phrases = ["Synergy", "Leverage", "Pivot", "Circle Back", "Low-Hanging Fruit", "Move the Needle", "Bandwidth", "Touch Base", "Deep Dive", "Paradigm Shift", "Think Outside the Box", "Win-Win", "Best Practices", "Core Competency", "Going Forward", "Take Offline", "Actionable", "Stakeholder", "Deliverable", "Value-Add", "Drill Down", "Run it up the Flagpole", "Boil the Ocean", "Ping Me"];
+        function shuffle(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } return array; }
+        function createBoard() {
+            const board = document.getElementById('bingoBoard');
+            board.innerHTML = '';
+            const selected = shuffle([...phrases]).slice(0, 16);
+            selected.forEach((phrase, idx) => {
                 const cell = document.createElement('div');
                 cell.className = 'bingo-cell';
                 cell.textContent = phrase;
-                cell.dataset.index = index;
-                cell.addEventListener('click', () => toggleCell(cell));
-                grid.appendChild(cell);
+                cell.onclick = () => cell.classList.toggle('marked');
+                board.appendChild(cell);
             });
         }
-
-        function toggleCell(cell) {
-            cell.classList.toggle('clicked');
-            checkBingo();
-        }
-
-        function checkBingo() {
-            const cells = document.querySelectorAll('.bingo-cell');
-            const clicked = Array.from(cells).map(c => c.classList.contains('clicked'));
-            
-            const lines = [
-                [0,1,2], [3,4,5], [6,7,8], // 横
-                [0,3,6], [1,4,7], [2,5,8], // 竖
-                [0,4,8], [2,4,6] // 斜
-            ];
-
-            const hasWon = lines.some(line => 
-                line.every(i => clicked[i])
-            );
-
-            const result = document.getElementById('result');
-            if (hasWon) {
-                result.textContent = '🎉 Bingo! 会议结束啦！';
-                result.style.color = '#4CAF50';
-            } else {
-                result.textContent = '';
-            }
-        }
-
-        document.getElementById('resetBtn').addEventListener('click', createBingoGrid);
-        createBingoGrid();
+        function resetBoard() { createBoard(); }
+        createBoard();
     </script>
 </body>
 </html>

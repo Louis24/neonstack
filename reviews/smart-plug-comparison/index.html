@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>智能插座对比 - Smart Plug Comparison</title>
-    <meta name="description" content="WiFi智能插座、定时、远程控制功能对比">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>Smart Plug Comparison 2026 | Reviews 评测</title>
+    <meta name="description" content="Compare WiFi smart plugs from TP-Link, Kasa, and Wemo. Remote control, scheduling, and energy monitoring features.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/site.css">
     <link rel="canonical" href="https://neonstack.net/reviews/smart-plug-comparison/">
     <script type="application/ld+json" data-generated-seo>
@@ -16,7 +21,7 @@
           "@id": "https://neonstack.net/reviews/smart-plug-comparison/#webpage",
           "url": "https://neonstack.net/reviews/smart-plug-comparison/",
           "name": "Smart Plug Comparison",
-          "description": "WiFi智能插座、定时、远程控制功能对比",
+          "description": "Compare WiFi smart plugs from TP-Link, Kasa, and Wemo. Remote control, scheduling, and energy monitoring features.",
           "isPartOf": {
             "@type": "WebSite",
             "@id": "https://neonstack.net/#website",
@@ -52,52 +57,48 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1>🔌 智能插座对比</h1>
-        <p>远程控制家电 - 智能家居入门</p>
+    <header class="header">
+        <div class="container navbar">
+            <a href="../../" class="logo">Smart<span>Plugs</span></a>
+            <nav class="nav-links"><a href="#comparison">Comparison</a><a href="#faq">FAQ</a></nav>
+        </div>
     </header>
-
-    <main class="container">
-        <section class="card">
-            <h2>主流品牌对比</h2>
-            <div class="comparison-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>品牌</th>
-                            <th>功能</th>
-                            <th>价格</th>
-                        </tr>
-                    </thead>
+    <section class="hero">
+        <div class="container text-center">
+            <span class="badge">2026 Smart Home</span>
+            <h1>Smart Plug Comparison Guide</h1>
+            <p class="subtitle">Compare WiFi smart plugs for remote control, scheduling, and energy monitoring.</p>
+        </div>
+    </section>
+    <section id="comparison" class="comparison-section">
+        <div class="container">
+            <h2 class="section-title">Top Smart Plugs</h2>
+            <div class="table-responsive">
+                <table class="comparison-table">
+                    <thead><tr><th>Brand</th><th>Voice Control</th><th>Energy Monitor</th><th>Size</th><th>Price</th><th>Action</th></tr></thead>
                     <tbody>
-                        <tr>
-                            <td><strong>小米智能插座</strong></td>
-                            <td>WiFi、定时、统计电量</td>
-                            <td>¥39</td>
-                        </tr>
-                        <tr>
-                            <td><strong>TP-Link Kasa</strong></td>
-                            <td>Alexa、Google兼容</td>
-                            <td>¥89</td>
-                        </tr>
+                        <tr class="highlighted-row"><td class="product-name"><strong>TP-Link Kasa</strong><span class="row-badge">Best Value</span></td><td>Alexa, Google</td><td>Yes</td><td>Compact</td><td>$</td><td><a href="https://www.amazon.com/s?k=TP-Link+Kasa+smart+plug" target="_blank" rel="sponsored nofollow noopener" class="btn btn-table btn-highlight">Check Price</a></td></tr>
+                        <tr><td><strong>Wemo Mini</strong></td><td>Alexa, Google, HomeKit</td><td>No</td><td>Mini</td><td>$</td><td><a href="https://www.amazon.com/s?k=Wemo+Mini+smart+plug" target="_blank" rel="sponsored nofollow noopener" class="btn btn-table">View</a></td></tr>
+                        <tr><td><strong>Amazon Smart Plug</strong></td><td>Alexa only</td><td>No</td><td>Standard</td><td>$</td><td><a href="https://www.amazon.com/s?k=Amazon+Smart+Plug" target="_blank" rel="sponsored nofollow noopener" class="btn btn-table">View</a></td></tr>
                     </tbody>
                 </table>
             </div>
-        </section>
-
-        <section class="card">
-            <h2>💡 使用场景</h2>
-            <ul class="tips-list">
-                <li>☕ 定时烧水壶 - 起床自动煮咖啡</li>
-                <li>💡 控制台灯 - 远程开关</li>
-                <li>🔥 电暖器安全 - 外出自动断电</li>
-                <li>📊 电量统计 - 了解电器耗电</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>Pure Frontend Tool - No Backend Required</p>
+        </div>
+    </section>
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 class="section-title">FAQ</h2>
+            <div class="faq-list">
+                <div class="faq-item"><h4>Do smart plugs need a hub?</h4><p>Most modern smart plugs connect directly to WiFi without a hub. Check compatibility with your router's 2.4GHz network (5GHz not supported by most plugs).</p></div>
+                <div class="faq-item"><h4>Can smart plugs save energy?</h4><p>Smart plugs with energy monitoring show real-time power usage. Schedule devices to turn off automatically when not needed. Typical savings: 5-10% on standby power consumption.</p></div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container text-center">
+            <nav class="footer-links" aria-label="Footer navigation"><a href="../../about/">About</a><a href="../../contact/">Contact</a><a href="../../privacy-policy/">Privacy Policy</a><a href="../../disclaimer/">Disclaimer</a></nav>
+            <p>&copy; 2026 NeonStack. Browser-first tools and focused guides.</p>
+        </div>
     </footer>
 </body>
 </html>
