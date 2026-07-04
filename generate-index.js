@@ -11,6 +11,17 @@ const MANIFEST_JSON = path.join(ROOT, 'content-manifest.json');
 const MANIFEST_JS = path.join(ROOT, 'assets', 'content-manifest.js');
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
 const ROBOTS = path.join(ROOT, 'robots.txt');
+const ADSENSE_CLIENT_ID = 'ca-pub-9797460743497525';
+const ADSENSE_CODE = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}"
+     crossorigin="anonymous"></script>`;
+const STATIC_PAGE_PATHS = [
+    'index.html',
+    'about/index.html',
+    'contact/index.html',
+    'privacy-policy/index.html',
+    'policy/index.html',
+    'disclaimer/index.html'
+];
 
 const EXCLUDED_TOP_LEVEL_DIRS = new Set([
     '.git',
@@ -240,6 +251,25 @@ function ensureMainH1(html) {
     return html.replace(/<h2(\s[^>]*)?>([\s\S]*?)<\/h2>/i, '<h1$1>$2</h1>');
 }
 
+function ensureAdsenseCode(html) {
+    if (html.includes(`pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`)) {
+        return html;
+    }
+    return html.replace(/<\/head>/i, `    ${ADSENSE_CODE}\n</head>`);
+}
+
+function updateStaticPages() {
+    for (const relativePath of STATIC_PAGE_PATHS) {
+        const indexPath = path.join(ROOT, relativePath);
+        if (!fs.existsSync(indexPath)) continue;
+        const originalHtml = fs.readFileSync(indexPath, 'utf8');
+        const html = ensureAdsenseCode(originalHtml);
+        if (html !== originalHtml) {
+            fs.writeFileSync(indexPath, html, 'utf8');
+        }
+    }
+}
+
 function updatePageSeo(indexPath, item) {
     const originalHtml = fs.readFileSync(indexPath, 'utf8');
     let html = originalHtml;
@@ -275,6 +305,7 @@ function updatePageSeo(indexPath, item) {
     }
 
     html = ensureMainH1(html);
+    html = ensureAdsenseCode(html);
     if (html !== originalHtml) {
         fs.writeFileSync(indexPath, html, 'utf8');
     }
@@ -434,6 +465,7 @@ async function main() {
         throw new Error('No content directories found.');
     }
 
+    updateStaticPages();
     const manifest = buildManifest(categories);
     writeManifest(manifest);
     writeSeoFiles(manifest);

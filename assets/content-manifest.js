@@ -1,5 +1,5 @@
 window.__CONTENT_MANIFEST__ = {
-  "generated": "2026-07-04T00:56:20.543Z",
+  "generated": "2026-07-04T07:06:03.125Z",
   "siteUrl": "https://neonstack.net",
   "categories": [
     "fun",

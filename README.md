@@ -200,19 +200,54 @@ npx serve
 **申请步骤：**
 1. 访问 https://www.google.com/adsense/start/ 注册
 2. 填写网站 URL 和个人信息
-3. 将审核代码添加到每个页面的 `<head>`：
+3. 将 AdSense 审核代码添加到每个页面的 `<head>`：
    ```html
    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-你的ID"
         crossorigin="anonymous"></script>
    ```
-4. 等待审核（1-7 天）
+4. 在网站根目录添加 `ads.txt`：
+   ```txt
+   google.com, pub-你的ID, DIRECT, f08c47fec0942fa0
+   ```
+5. 部署上线后确认 `https://你的域名/ads.txt` 可以打开
+6. 回到 AdSense 后台点击检查/提交审核
+
+### AdSense 代码自动添加
+
+本项目已经把当前 AdSense 发布商 ID 写入 `generate-index.js`：
+
+```js
+const ADSENSE_CLIENT_ID = 'ca-pub-9797460743497525';
+```
+
+以后新增页面后，不需要手动给每个 HTML 粘贴代码，只要运行：
+
+```bash
+pnpm run build
+```
+
+或：
+
+```bash
+npm run build
+```
+
+原因是 `package.json` 里的 `build` 脚本会执行：
+
+```bash
+node generate-index.js
+```
+
+`generate-index.js` 会扫描 `tools/`、`reviews/`、`games/`、`fun/` 下的所有 `index.html`，同时处理首页、About、Contact、Privacy Policy、Disclaimer、Policy 等静态页面，并自动把 AdSense `<script>` 插入到每个页面的 `</head>` 前。如果页面里已经有这段代码，脚本会跳过，不会重复添加。
+
+注意：`ads.txt` 是授权声明文件，必须放在网站根目录；它不能替代 `<script>`。AdSense 审核和自动广告需要页面里的 `<script>`，广告买家验证授权发布商需要 `ads.txt`。两个都建议保留。
+
+审核通常需要几天，有时可能更久。审核通过后推荐开启**自动广告**，或手动添加广告位代码。
 
 **常见要求：**
 - ✅ 原创内容（95+ 页面）
 - ✅ 足够页面（至少 20 页）
 - ✅ 符合政策
-
-审核通过后推荐开启**自动广告**，或手动添加广告位代码。
 
 ### 设置收款方式
 
